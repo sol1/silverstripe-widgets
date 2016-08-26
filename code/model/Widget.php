@@ -317,4 +317,9 @@ class Widget extends DataObject
         $this->Name = $this->class . $this->ID;
         $this->write();
     }
+
+    public function doPublish()
+    {
+        $this->publish('Stage', 'Live');
+    }
 }

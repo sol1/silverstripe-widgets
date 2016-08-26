@@ -86,4 +86,19 @@ class WidgetArea extends DataObject
             $widget->delete();
         }
     }
+
+    public function doPublish()
+    {
+        $widgetIDs = array();
+        foreach ($this->Items() as $widget) {
+            $widget->doPublish();
+            $widgetIDs[] = $widget->ID;
+        }
+        $liveWidgets = Versioned::get_by_stage('Widget', 'Live')->filter('ParentID', $this->ID);
+        foreach ($liveWidgets as $widget) {
+            if (!in_array($widget->ID, $widgetIDs)) {
+                $widget->deleteFromStage('Live');
+            }
+        }
+    }
 }
