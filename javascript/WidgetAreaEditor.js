@@ -86,6 +86,8 @@
 						}
 					});
 				}
+                
+                this.rewriteWidgetAreaAttributes();
 			},
 			
 			addWidget: function(className, holder) {
